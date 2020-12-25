@@ -1,5 +1,5 @@
 import itertools
-import random
+from tqdm import tqdm
 
 OPS = "-+/*-+/*-+"
 EQU = ">=>=<=>=<="
@@ -34,22 +34,24 @@ def all_strings(pos_list):
     return(str_list, TF_list)
 
 def all_pos_lists():
-    for p in itertools.product(range(10), repeat=N_DISC):
+    for p in tqdm(itertools.product(range(10), repeat=N_DISC), total  = 10**N_DISC):
         yield list(p)
 
 if __name__ == '__main__':
     means = []
     configs_found = 0
     tot_configs = 10 ** N_DISC
-    for i, p in enumerate(all_pos_lists()):
+    configs_list = []
+    for p in all_pos_lists():
         SL, TFL = all_strings(p)
         mean = sum(TFL) / len(TFL)
         means.append(mean)
-        if i % 100000 == 0:
-            print(i)
+#%        if i % 100000 == 0:
+#            print(i)
         if mean == 0.5:  # empirically, the max Pr is 0.5
-            print(SL)
+            configs_list.append(SL)
             configs_found += 1
+    print('\n'.join([str(e) for e in configs_list]))
     print('----')
     print('Max proportion correct', max(means))
     print('Found %d of %d at max, chances %f' % (configs_found, tot_configs, configs_found / tot_configs))
