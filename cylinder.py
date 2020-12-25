@@ -40,14 +40,16 @@ def all_pos_lists():
 if __name__ == '__main__':
     means = []
     configs_found = 0
+    tot_configs = 10 ** N_DISC
     for i, p in enumerate(all_pos_lists()):
         SL, TFL = all_strings(p)
         mean = sum(TFL) / len(TFL)
         means.append(mean)
         if i % 100000 == 0:
             print(i)
-        if mean == 0.5:
+        if mean == 0.5:  # empirically, the max Pr is 0.5
             print(SL)
             configs_found += 1
     print('----')
-    print(max(means)) # empirically, the max is 0.5
+    print('Max proportion correct', max(means))
+    print('Found %d of %d at max, chances %f' % (configs_found, tot_configs, configs_found / tot_configs))
