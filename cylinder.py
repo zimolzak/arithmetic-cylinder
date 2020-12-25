@@ -18,7 +18,10 @@ def one_string(pos_list):
 
 def simple_eval(expr_string):
     Se = expr_string.replace('=', '==')
-    return(eval(Se))
+    try:
+        return(eval(Se))
+    except ZeroDivisionError:
+        return(False)
 
 def all_strings(pos_list):
     str_list = []
@@ -35,7 +38,16 @@ def all_pos_lists():
         yield list(p)
 
 if __name__ == '__main__':
-    for p in all_pos_lists():
+    means = []
+    configs_found = 0
+    for i, p in enumerate(all_pos_lists()):
         SL, TFL = all_strings(p)
-        print(SL)
-        print(TFL)
+        mean = sum(TFL) / len(TFL)
+        means.append(mean)
+        if i % 100000 == 0:
+            print(i)
+        if mean == 0.5:
+            print(SL)
+            configs_found += 1
+    print('----')
+    print(max(means)) # empirically, the max is 0.5
