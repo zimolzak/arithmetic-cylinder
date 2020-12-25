@@ -3,6 +3,7 @@ import random
 
 OPS = "-+/*-+/*-+"
 EQU = ">=>=<=>=<="
+N_DISC = 6
 
 def one_string(pos_list):
     """Take list of position of all 6 rings."""
@@ -29,11 +30,12 @@ def all_strings(pos_list):
         TF_list.append(simple_eval(str_i))
     return(str_list, TF_list)
 
-my_pos_list = [1,2,3,4,5,6]
+def all_pos_lists():
+    for p in itertools.product(range(10), repeat=N_DISC):
+        yield list(p)
 
-S = one_string(my_pos_list)
-print(S)
-print(simple_eval(S))
-SL, TFL = all_strings(my_pos_list)
-print(SL)
-print(TFL)
+if __name__ == '__main__':
+    for p in all_pos_lists():
+        SL, TFL = all_strings(p)
+        print(SL)
+        print(TFL)
