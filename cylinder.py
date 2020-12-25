@@ -10,12 +10,30 @@ def one_string(pos_list):
     output += OPS[pos_list[1]]
     output += str(pos_list[2])
     output += EQU[pos_list[3]]
-    output += str(pos_list[4])
+    if str(pos_list[4]) != '0':
+        output += str(pos_list[4])
     output += str(pos_list[5])
     return(output)
 
-S = one_string([1,2,3,4,5,6])
-Se = S.replace('=', '==')
-TF = eval(Se)
+def simple_eval(expr_string):
+    Se = expr_string.replace('=', '==')
+    return(eval(Se))
+
+def all_strings(pos_list):
+    str_list = []
+    TF_list = []
+    for offset in range(10):
+        offsetted_pos_list = [(e + offset) % 10 for e in pos_list]
+        str_i = one_string(offsetted_pos_list)
+        str_list.append(str_i)
+        TF_list.append(simple_eval(str_i))
+    return(str_list, TF_list)
+
+my_pos_list = [1,2,3,4,5,6]
+
+S = one_string(my_pos_list)
 print(S)
-print(TF)
+print(simple_eval(S))
+SL, TFL = all_strings(my_pos_list)
+print(SL)
+print(TFL)
