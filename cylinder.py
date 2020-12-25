@@ -46,12 +46,15 @@ if __name__ == '__main__':
         SL, TFL = all_strings(p)
         mean = sum(TFL) / len(TFL)
         means.append(mean)
-#%        if i % 100000 == 0:
-#            print(i)
         if mean == 0.5:  # empirically, the max Pr is 0.5
             configs_list.append(SL)
             configs_found += 1
     print('\n'.join([str(e) for e in configs_list]))
     print('----')
     print('Max proportion correct', max(means))
-    print('Found %d of %d at max, chances %f' % (configs_found, tot_configs, configs_found / tot_configs))
+    print('Found %d of %d at 0.5, chances %f' % (configs_found, tot_configs, configs_found / tot_configs))
+    print('----\nHistogram:')
+    for i in range(10):
+        pr = i / 10
+        count = means.count(pr)
+        print(pr, count)
