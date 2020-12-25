@@ -1,4 +1,6 @@
 import itertools
+import random
+
 OPS = "-+/*-+/*-+"
 EQU = ">=>=<=>=<="
 
@@ -12,5 +14,8 @@ def one_string(pos_list):
     output += str(pos_list[5])
     return(output)
 
-print(one_string([1,2,3,4,5,6]))
-
+S = one_string([1,2,3,4,5,6])
+Se = S.replace('=', '==')
+TF = eval(Se)
+print(S)
+print(TF)
