@@ -33,15 +33,18 @@ def pos_list_to_word_list(pos_list):
 
 def count_valid_words(word_list):
     n = 0
+    matches = []
     for w in word_list:
         if w in FOUR_LETTER_WORDS:
             n += 1
-    return n
+            matches.append(w)
+    return n, matches
 
 
 for i in all_pos_lists():
     wl = pos_list_to_word_list(i)
-    n = count_valid_words(wl)
+    n, ml = count_valid_words(wl)
     if n > 1:
         wl.sort()
-        print(n, wl)
+        ml.sort()
+        print(n, wl, ml)
