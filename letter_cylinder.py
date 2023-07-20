@@ -1,7 +1,4 @@
 import itertools
-import random
-
-random.seed(3)
 
 RINGS = "gtscfrle ylotriae aolesifc etrbwsoh".split()
 N_DISC = len(RINGS)  # probably 4
