@@ -1,4 +1,4 @@
-PATHNAME = '/Users/ajz/Dropbox/personal/etexts-dropbox/mwords/SINGLE.TXT'
+PATHNAME = '/Users/ajz/Dropbox/personal/etexts-dropbox/mwords/CROSSWD.TXT'
 
 with open(PATHNAME) as fh:
     for line in fh:
