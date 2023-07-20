@@ -1,4 +1,3 @@
-from tqdm import tqdm
 import itertools
 import random
 
@@ -8,12 +7,15 @@ RINGS = "gtscfrle ylotriae aolesifc etrbwsoh".split()
 N_DISC = len(RINGS)  # probably 4
 LETTERS_PER_DISC = len(RINGS[0])  # probably 8
 
+FOUR_LETTER_WORDS = []
+with open('fourletter.txt') as fh:
+    for line in fh:
+        line = line.strip()
+        FOUR_LETTER_WORDS.append(line)
+
 
 def all_pos_lists():
-    for p in tqdm(
-            itertools.product(range(LETTERS_PER_DISC), repeat=N_DISC),
-            total=LETTERS_PER_DISC ** N_DISC
-    ):
+    for p in itertools.product(range(LETTERS_PER_DISC), repeat=N_DISC):
         yield list(p)
 
 
@@ -29,15 +31,17 @@ def pos_list_to_word_list(pos_list):
     return word_list
 
 
-def count_valid_words(word_list):  # FIXME
-    if random.random() < 0.001:
-        return 2
-    else:
-        return 1
+def count_valid_words(word_list):
+    n = 0
+    for w in word_list:
+        if w in FOUR_LETTER_WORDS:
+            n += 1
+    return n
 
 
 for i in all_pos_lists():
     wl = pos_list_to_word_list(i)
     n = count_valid_words(wl)
     if n > 1:
+        wl.sort()
         print(n, wl)
