@@ -1,5 +1,8 @@
 from tqdm import tqdm
 import itertools
+import random
+
+random.seed(3)
 
 RINGS = "gtscfrle ylotriae aolesifc etrbwsoh".split()
 N_DISC = len(RINGS)  # probably 4
@@ -26,5 +29,15 @@ def pos_list_to_word_list(pos_list):
     return word_list
 
 
+def count_valid_words(word_list):  # FIXME
+    if random.random() < 0.001:
+        return 2
+    else:
+        return 1
+
+
 for i in all_pos_lists():
-    print(pos_list_to_word_list(i))
+    wl = pos_list_to_word_list(i)
+    n = count_valid_words(wl)
+    if n > 1:
+        print(n, wl)
