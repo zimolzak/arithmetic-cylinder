@@ -17,17 +17,14 @@ def all_pos_lists():
 def pos_list_to_word_list(pos_list):
     word_list = []
     for word_n in range(LETTERS_PER_DISC):
-        offsets = [word_n] * N_DISC
+        offsets = [word_n] * N_DISC  # always like [0,0,0,0] or [7,7,7,7]
         final_indices = [sum(x) % LETTERS_PER_DISC for x in zip(pos_list, offsets)]
         word = ""
         for disc_n in range(N_DISC):
-            word += RINGS[disc_n][offsets[disc_n]]
+            word += RINGS[disc_n][final_indices[disc_n]]
         word_list += [word]
     return word_list
 
 
 for i in all_pos_lists():
-    print(i)
-    # print(pos_list_to_word_list(i))
-
-print(pos_list_to_word_list([1,2,3,4]))
+    print(pos_list_to_word_list(i))
